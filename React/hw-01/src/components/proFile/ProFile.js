@@ -12,7 +12,7 @@ const ProFile = ({user}) => {
       alt={name}
       className={css.avatar}
     />
-<p className={css.name}>{name}</p>
+<h2 className={css.name}>{name}</h2>
 <p className={css.tag}>@{tag}</p>
     <p className={css.location}>{location} </p>
   </div>
