@@ -1,0 +1,27 @@
+.item {
+  width: 300px;
+  border-radius: 5px;
+  background-color: darkgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.avatar {
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.statusOn {
+  width: 20px;
+  height: 20px;
+  background-color: #7fff00;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.statusOf {
+  width: 20px;
+  height: 20px;
+  background-color: #db143c;
+  border-radius: 50%;
+  margin-right: 20px;
+}
