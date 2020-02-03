@@ -2,14 +2,14 @@
   margin: auto;
   width: 600px;
   text-align: center;
-  background-color: #ffffff;
+  background-color: #ffffff7a;
   border-radius: 6px;
   margin-bottom: 20px;
 }
 
 .thead {
-  background-color: #00bcd5;
-  color: #ffffff;
+  background-color: #84bdc5;
+  color: #ffffff3f;
   text-transform: uppercase;
 }
 
@@ -26,11 +26,11 @@ td {
 }
 
 tr:nth-child(even) {
-  background-color: #ecf1f4;
+  background-color: #b4cddd;
 }
 .transactionHistory,
 th,
 td {
-  border: 1px solid #e5e5e5;
+  border: 1px solid #e7bdbd;
   border-collapse: collapse;
 }
