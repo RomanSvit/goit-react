@@ -1,17 +1,17 @@
 import React from 'react';
 import css from '../modal/Modal.module.css';
 
-const Modal = () => {
-    return (
-      <>
-        <div className={css.Overlay}>
-          <div className={css.Modal}>
-            <img src="" alt="" />
-          </div>
+const Modal = ({ onClick, reference }) => {
+  return (
+    <>
+      <div className={css.Overlay} onClick={onClick}>
+        <div className={css.Modal}>
+          <img src={reference} alt="" />
         </div>
-      </>
-    );
-}
+      </div>
+    </>
+  );
+};
 // import * as basicLightbox from "basiclightbox";
 
 // const instance = basicLightbox.create(`

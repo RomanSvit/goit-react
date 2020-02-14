@@ -3,12 +3,13 @@ import css from "../imageGalleryItem/ImageGalleryItem.module.css";
 
 const ImageGalleryItem = ({ item }) => {
   // console.log(item);
-  const { webformatURL, tags } = item;
+  const { smallImage, tags, id } = item;
   return (
     <>
       <li className={css.ImageGalleryItem}>
         <img
-          src={webformatURL}
+          id={id}
+          src={smallImage}
           alt={tags}
           className={css.ImageGalleryItemImage}
         />
