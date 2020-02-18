@@ -75,6 +75,10 @@ class App extends Component {
          isLoading: false
        };
      });
+     window.scrollTo({
+       top: document.documentElement.scrollHeight,
+       behavior: "smooth"
+     });
   };
 
   handleClickBox = e => {
