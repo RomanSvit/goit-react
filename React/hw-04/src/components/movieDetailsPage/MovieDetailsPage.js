@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 import Cast from "./cast/Cast";
 import Reviews from "./revie/Reviews";
 import { getDetailsInfoMovie } from "../../services/axios-api";
+import DetailsPage from "./detailsPage/DetailsPage";
 
 const getIdFromProps = props => props.match.params.movieId;
 
@@ -13,23 +14,30 @@ class MovieDetailsPage extends Component {
     const id = getIdFromProps(this.props);
     getDetailsInfoMovie(id).then(items => this.setState({ items }));
   }
+
+  handleGoBack = () => {
+    console.log(this.props);
+    this.props.history.push("/");
+  };
   render() {
     const { items } = this.state;
-    console.log(items)
+    console.log(items);
     console.log(this.props.match);
     return (
       <div>
-        <h2>eeeeee</h2>
-        <Route
-          path="/movies/:movieId/cast"
-          component={Cast}
-          itemObject={items}
-        />
-        <Route
-          path="/movies/:movieId/reviews"
-          component={Reviews}
-          itemObject={items}
-        />
+        {items && <DetailsPage items={items} onGoBack={this.handleGoBack} />}
+        <div>
+          <NavLink
+            to="/movies/:movieId/cast"
+            component={Cast}
+            itemObject={items}
+          />
+          <Route
+            path="/movies/:movieId/reviews"
+            component={Reviews}
+            itemObject={items}
+          />
+        </div>
       </div>
     );
   }

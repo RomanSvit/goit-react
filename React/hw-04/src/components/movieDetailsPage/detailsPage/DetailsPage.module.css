@@ -1,0 +1,16 @@
+.blockDetails{
+    display: flex;
+}
+.img{
+    margin-right: 20px;
+}
+.minTitle{
+    font-weight: 700;
+}
+.genres{
+    list-style: none;
+    display: flex;
+}
+.genres>li{
+    margin-right: 5px;
+}
