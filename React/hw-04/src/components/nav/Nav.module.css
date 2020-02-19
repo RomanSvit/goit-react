@@ -1,0 +1,9 @@
+.menu{
+    padding: 15px 0;
+    display: flex;
+    background-color: deepskyblue;
+}
+.menuItem{
+    list-style-type: none;
+    margin-right: 15px;
+}

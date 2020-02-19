@@ -12,12 +12,19 @@ export const fetchArticles = async () => {
 
 export const getDetailsInfoMovie = async id => {
   return axios
-    .get(`${BASE_URL}movie/${id}?api_key=${KEY}`)
+    .get(`${BASE_URL}movie/${id}?api_key=${KEY}&language=ru-RU`)
     .then(response => response.data);
 };
 
 export const getInfoActors = async id => {
   return axios
-    .get(`${BASE_URL}movie/${id}/credits?api_key=${KEY}`)
+    .get(`${BASE_URL}movie/${id}/credits?api_key=${KEY}&language=ru-RU`)
     .then(response => response.data);
+    
+};
+export const getInfoReviews = async id => {
+  return axios
+    .get(`${BASE_URL}movie/${id}/reviews?api_key=${KEY}&language=en-RU`)
+    .then(response => response.data);
+
 };
