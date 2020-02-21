@@ -1,9 +1,16 @@
-import React, { Component } from "react";
+import React, { Component, lazy, Suspense } from "react";
 import { Route, NavLink } from "react-router-dom";
-import Cast from "./cast/Cast";
-import Reviews from "./revie/Reviews";
 import { getDetailsInfoMovie } from "../../services/axios-api";
 import DetailsPage from "./detailsPage/DetailsPage";
+// import Cast from "./cast/Cast";
+// import Reviews from "./revie/Reviews";
+
+const AsyncCast = lazy(() =>
+  import("./cast/Cast" /*webpackChunkName: "cast-page" */)
+);
+const AsyncReviews = lazy(() =>
+  import("./revie/Reviews" /*webpackChunkName: "revie-page" */)
+);
 
 const getIdFromProps = props => props.match.params.movieId;
 const activeStyle = {
@@ -18,22 +25,28 @@ class MovieDetailsPage extends Component {
   }
 
   handleGoBack = () => {
-    console.log(this.props);
-    this.props.history.push("/");
+    // console.log(this.props);
+    const { history, location } = this.props;
+    if (location.state) {
+      return history.push(location.state.from);
+    }
+    history.push("/");
   };
+
   render() {
-    const { movieId } = getIdFromProps(this.props);
-    console.log(movieId)
     const { items } = this.state;
-    console.log(items);
-    console.log(this.props.match);
+    // console.log(items)
+    // console.log(this.props.match);
     return (
       <div>
+        {/* <h2>{JSON.stringify(this.props.location.state)}</h2> */}
         {items && <DetailsPage items={items} onGoBack={this.handleGoBack} />}
         <ul>
           <li>
             <NavLink
-              to={`/movies/${this.props.match.params.movieId}/cast`}
+              to={{
+                pathname: `/movies/${this.props.match.params.movieId}/cast`
+              }}
               exact
               activeStyle={activeStyle}
             >
@@ -42,24 +55,27 @@ class MovieDetailsPage extends Component {
           </li>
           <li>
             <NavLink
-              to={`/movies/${this.props.match.params.movieId}/reviews`}
+              to={{
+                pathname: `/movies/${this.props.match.params.movieId}/reviews`
+              }}
               activeStyle={activeStyle}
             >
               Reviews
             </NavLink>
           </li>
         </ul>
-
-        <Route
-          path="/movies/:movieId/cast"
-          component={Cast}
-          itemObject={items}
-        />
-        <Route
-          path="/movies/:movieId/reviews"
-          component={Reviews}
-          itemObject={items}
-        />
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <Route
+            path="/movies/:movieId/cast"
+            component={AsyncCast}
+            itemObject={items}
+          />
+          <Route
+            path="/movies/:movieId/reviews"
+            component={AsyncReviews}
+            itemObject={items}
+          />
+        </Suspense>
       </div>
     );
   }

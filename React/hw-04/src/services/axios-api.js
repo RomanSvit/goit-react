@@ -10,6 +10,14 @@ export const fetchArticles = async () => {
   }
 };
 
+export const searchForKeyWord = async query => {
+  return axios
+    .get(
+      `${BASE_URL}search/movie?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=false`
+    )
+    .then(response => response.data.results);
+};
+
 export const getDetailsInfoMovie = async id => {
   return axios
     .get(`${BASE_URL}movie/${id}?api_key=${KEY}&language=ru-RU`)
@@ -20,11 +28,9 @@ export const getInfoActors = async id => {
   return axios
     .get(`${BASE_URL}movie/${id}/credits?api_key=${KEY}&language=ru-RU`)
     .then(response => response.data);
-    
 };
 export const getInfoReviews = async id => {
   return axios
     .get(`${BASE_URL}movie/${id}/reviews?api_key=${KEY}&language=en-RU`)
     .then(response => response.data);
-
 };

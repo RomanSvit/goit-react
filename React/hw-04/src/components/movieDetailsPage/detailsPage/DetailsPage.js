@@ -2,7 +2,14 @@ import React from "react";
 import css from "./DetailsPage.module.css";
 import shortid from "shortid";
 const DetailsPage = ({ items, onGoBack }) => {
-  const { genres, poster_path, original_title, release_date, overview } = items;
+  const {
+    genres,
+    poster_path,
+    original_title,
+    release_date,
+    overview,
+    vote_average
+  } = items;
   return (
     <div>
       <button type="button" onClick={onGoBack}>
@@ -18,7 +25,9 @@ const DetailsPage = ({ items, onGoBack }) => {
           <h2>
             {original_title} ({parseInt(release_date)})
           </h2>
-          <p>User Score:</p>
+          <p>
+            <b>User Score:</b> {vote_average * 10}%
+          </p>
           <span className={css.minTitle}>Overview:</span>
           <p>{overview}</p>
           <span className={css.minTitle}>Genres:</span>
