@@ -1,8 +1,9 @@
 import React from "react";
+import css from "./Filter.module.css"
 const Filter = ({ onHandleFind, value }) => {
   return (
     <>
-      <span>Find contacts by name</span>
+      <span className={css.titleFind}>Find contacts by name</span>
       <input
         type="text"
         value={value}

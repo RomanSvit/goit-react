@@ -5,6 +5,7 @@ import ContactList from "./contactList/ContactList";
 import Form from "./form/Form";
 import Section from "./section/Section";
 import uuid from "uuid";
+import css from "./App.module.css"
 
 class App extends Component {
   state = {
@@ -84,23 +85,25 @@ class App extends Component {
     // console.log(filteredContacts);
     return (
       <>
-        <Section title="Phonebook">
-          <Form
-            showName={this.showName}
-            handleSubmit={this.handleSubmit}
-            name={this.state.name}
-            number={this.state.number}
-          />
-        </Section>
-        <Section title="Contacts">
-          <Filter onHandleFind={this.changeFilter} value={filter} />
-          <ContactList
-            arr={filteredContacts}
-            onDelete={this.handleDeleteConctact}
-            onHandleFind={this.changeFilter}
-            value={filter}
-          />
-        </Section>
+        <div className={css.mainBlock}>
+          <Section title="Phonebook">
+            <Form
+              showName={this.showName}
+              handleSubmit={this.handleSubmit}
+              name={this.state.name}
+              number={this.state.number}
+            />
+          </Section>
+          <Section title="Contacts">
+            <Filter onHandleFind={this.changeFilter} value={filter} />
+            <ContactList
+              arr={filteredContacts}
+              onDelete={this.handleDeleteConctact}
+              onHandleFind={this.changeFilter}
+              value={filter}
+            />
+          </Section>
+        </div>
       </>
     );
   }

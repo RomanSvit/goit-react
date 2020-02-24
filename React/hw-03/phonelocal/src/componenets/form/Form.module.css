@@ -1,0 +1,10 @@
+.form{
+    /* margin: 0 auto; */
+    /* width: 600px; */
+    display: flex;
+    flex-direction: column;
+}
+.form>span{
+    display: block;
+    font-weight: 600;
+}
