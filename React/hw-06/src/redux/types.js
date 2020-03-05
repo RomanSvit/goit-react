@@ -1,5 +1,0 @@
-export default {
-  ADD_CONTACTS: "type_ADD_CONTACTS",
-  DELETE_CONTACTS: "type_DELETE_CONTACTS",
-  GET_FILTER_VALUE: "type_GET_FILTER_VALUE"
-};
