@@ -1,23 +1,28 @@
-/* eslint-disable no-undef */
 import React, { Component } from "react";
 import Filter from "./filter/Filter";
 import ContactList from "./contactList/ContactList";
 import Form from "./form/Form";
 import Section from "./section/Section";
 import uuid from "uuid";
-import css from "./App.module.css"
+import css from "./App.module.css";
+import { connect } from "react-redux";
+import {
+  addContacts,
+  deleteContacts,
+  getFilterValue
+} from "../redux/createActions";
+
+const handleFindContact = (filter, contacts) =>
+  contacts.length >= 2
+    ? contacts.filter(elem =>
+        elem.name.toLowerCase().includes(filter.toLowerCase())
+      )
+    : contacts;
 
 class App extends Component {
   state = {
-    contacts: [
-      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      { id: "id-4", name: "Annie Copeland", number: "227-91-26" }
-    ],
     name: "",
-    number: "",
-    filter: ""
+    number: ""
   };
   componentDidMount() {
     const keyLocalContacts = localStorage.getItem("contacts");
@@ -26,7 +31,7 @@ class App extends Component {
     }
   }
   changeFilter = e => {
-    this.setState({ filter: e.target.value });
+    this.props.getFilterValue(e.target.value);
   };
 
   showName = e => {
@@ -40,49 +45,32 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const hasContact = this.state.contacts.find(
+    const { name, number } = this.state;
+
+    const newContact = {
+      name: name,
+      number: number,
+      id: this.getId()
+    };
+    const hasContact = this.props.contacts.find(
       elem => elem.name.toLowerCase() === e.target.name.value.toLowerCase()
     );
-    if (!hasContact) {
-      const object = {
-        name: this.state.name,
-        number: this.state.number,
-        id: this.getId()
-      };
-      this.setState(prevstate => {
-        return {
-          contacts: [...prevstate.contacts, object],
-          name: "",
-          number: "",
-          id: ""
-        };
-      });
-    } else {
-      alert(`${hasContact.name} is already in contacts!`);
-    }
+    !hasContact
+      ? this.props.addContacts(newContact)
+      : alert(`${hasContact.name} is already in contacts!`);
   };
-
   handleDeleteConctact = e => {
-    this.setState({
-      contacts: this.state.contacts.filter(el => el.id !== e.target.id)
-    });
+    this.props.deleteContacts(e.target.id);
   };
 
-  handleFindContact = (contacts, filter) => {
-    return contacts.filter(elem =>
-      elem.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
   componentDidUpdate(prevState) {
     if (prevState.contacts !== this.state.contacts) {
-      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+      localStorage.setItem("contacts", JSON.stringify(this.props.contacts));
     }
   }
   render() {
-    // console.log("object", this.state.contacts);
-    const { contacts, filter } = this.state;
-    const filteredContacts = this.handleFindContact(contacts, filter);
-    // console.log(filteredContacts);
+    const { contacts, filter } = this.props;
+    const filteredContacts = handleFindContact(filter, contacts);
     return (
       <>
         <div className={css.mainBlock}>
@@ -108,5 +96,13 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = ({ contacts, filter }) => ({
+  contacts,
+  filter
+});
 
-export default App;
+export default connect(mapStateToProps, {
+  addContacts,
+  deleteContacts,
+  getFilterValue
+})(App);

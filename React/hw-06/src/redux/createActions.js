@@ -1,20 +1,15 @@
-import {
-  ADD_CONTACTS,
-  DELETE_CONTACTS,
-  FIND_CONTACTS
-} from "./types";
+import Type from "./types";
 
-const addContacts = contacts => ({
-  type: ADD_CONTACTS,
-  payload: contacts
+const addContacts = newContact => ({
+  type: Type.ADD_CONTACTS,
+  payload: newContact
 });
-const deleteContacts = contacts => ({
-  type: DELETE_CONTACTS,
-  payload: contacts
+const deleteContacts = id => ({
+  type: Type.DELETE_CONTACTS,
+  payload: id
 });
-const findContacts = contacts => ({
-  type: FIND_CONTACTS,
-  payload: contacts
+const getFilterValue = value => ({
+  type: Type.GET_FILTER_VALUE,
+  payload: value
 });
-
-export { addContacts, deleteContacts, findContacts };
+export { addContacts, deleteContacts, getFilterValue };

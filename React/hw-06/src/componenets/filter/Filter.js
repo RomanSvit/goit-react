@@ -9,6 +9,7 @@ const Filter = ({ onHandleFind, value }) => {
         value={value}
         onChange={onHandleFind}
         placeholder="Type to filter contacts...."
+        className={css.filter}
       ></input>
     </>
   );
